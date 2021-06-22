@@ -2,7 +2,7 @@ name: 'Goblet Deploy'
 description: 'Deploy your Goblet App'
 author: 'Austen Novis'
 branding:
-  icon: coffee
+  icon: upload-cloud
   color: blue
 runs:
   using: 'docker'
