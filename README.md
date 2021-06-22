@@ -48,7 +48,7 @@ jobs:
         service_account_key: ${{ secrets.GCP_SA_KEY }}
         export_default_credentials: true
     - name: goblet deploy
-      uses: ./
+      uses: anovis/goblet-github-actions@v1.0
       env:
         PROJECT: ${{ env.GCLOUD_PROJECT }}
         LOCATION: us-east1
