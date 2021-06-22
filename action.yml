@@ -1,0 +1,9 @@
+name: 'Goblet Deploy'
+description: 'Deploy your Goblet App'
+author: 'Austen Novis'
+branding:
+  icon: coffee
+  color: blue
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
