@@ -9,7 +9,7 @@ if ! [ -z "$GOBLET_PATH" ]
 then
     cd "$GOBLET_PATH"
 fi
-
-command="goblet deploy --project $PROJECT --location $LOCATION $stageSubCommand"
+config="{\"cloudfunction\":{\"environmentVariables\":{$1}}}"
+command="goblet deploy --project $PROJECT --location $LOCATION $stageSubCommand --config $config"
 
 eval $command

@@ -1,9 +1,16 @@
 name: 'Goblet Deploy'
 description: 'Deploy your Goblet App'
 author: 'Austen Novis'
+inputs:
+  envars:
+    description: |-
+      List of environment k:v pairs to add to the cloud function
+    required: false
 branding:
   icon: upload-cloud
   color: blue
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  args:
+    - ${{ inputs.envars }}
