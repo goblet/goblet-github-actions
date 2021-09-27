@@ -2,10 +2,21 @@ name: 'Goblet Deploy'
 description: 'Deploy your Goblet App'
 author: 'Austen Novis'
 inputs:
-  config:
-    description: |-
-      json string of any config overrides
+  project:
+    description: gcloud project to deploy to
+    required: true
+  location:
+    description: region to deploy to
+    required: true
+  stage:
+    description: deployment stage
     required: false
+    default: ''
+  envars:
+    description: |-
+      list of key, value pairs that should be added to the function's environment variables
+    required: false
+    default: ''
 branding:
   icon: upload-cloud
   color: blue
@@ -13,4 +24,7 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.config }}
+    - ${{ inputs.project }}
+    - ${{ inputs.location }}
+    - ${{ inputs.stage }}
+    - ${{ inputs.envars }}
