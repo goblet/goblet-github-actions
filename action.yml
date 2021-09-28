@@ -8,6 +8,10 @@ inputs:
   location:
     description: region to deploy to
     required: true
+  goblet-path:
+    description: Path to a goblet app directory in which `main.py`, `requirements.txt` and `.goblet\` should be stored
+    required: false
+    default: ''
   stage:
     description: deployment stage
     required: false
@@ -15,6 +19,7 @@ inputs:
   envars:
     description: |-
       list of key, value pairs that should be added to the function's environment variables
+      written as '{k1}:{v1},{k2}:{v2},...'
     required: false
     default: ''
 branding:
@@ -26,5 +31,6 @@ runs:
   args:
     - ${{ inputs.project }}
     - ${{ inputs.location }}
+    - ${{ inputs.goblet-path }}
     - ${{ inputs.stage }}
     - ${{ inputs.envars }}

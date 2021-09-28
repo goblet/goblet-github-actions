@@ -1,3 +1,4 @@
+import os
 import sys
 import json
 import subprocess
@@ -5,8 +6,11 @@ import subprocess
 if __name__ == "__main__":
     project = sys.argv[1]
     location = sys.argv[2]
-    stage = sys.argv[3]
-    envars = sys.argv[4]
+    goblet_path = sys.argv[3]
+    stage = sys.argv[4]
+    envars = sys.argv[5]
+
+    os.chdir(goblet_path)
 
     stage_sub_command = ""
     config_sub_command = ""
