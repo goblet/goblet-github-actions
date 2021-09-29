@@ -6,14 +6,15 @@ This Github action allows automated deployment of your Goblet application via Gi
 
 ## Parameters
 
-The parameters will be passed to the action by using environment variables.
+The parameters will be passed to the action through `with`
 
 | Name  | Description  | Required?  |
 |---|---|---|
-| PROJECT  | GCP project  | Required  |
-| LOCATION  | GCP location  | Required  |
-| GOBLET_PATH  | Path to a goblet app directory in which `main.py`, `requirements.txt` and `.goblet\` should be stored  | Optional  |
-| STAGE  | Name of stage which should be used | Optional  |
+| project  | GCP project  | Required  |
+| location  | GCP location  | Required  |
+| goblet_path  | Path to a goblet app directory in which `main.py`, `requirements.txt` and `.goblet\` should be stored  | Optional  |
+| stage  | Name of stage which should be used | Optional  |
+| envars | list of key, value pairs that should be added to the function's environment variables (written as '{k1}:{v1},{k2}:{v2},...') | Optional
 
 
 ## Usage
@@ -49,9 +50,13 @@ jobs:
         export_default_credentials: true
     - name: goblet deploy
       uses: anovis/goblet-github-actions@v1.0
-      env:
-        PROJECT: ${{ env.GCLOUD_PROJECT }}
-        LOCATION: us-east1
+      with:
+        project: ${{ env.GCLOUD_PROJECT }}
+        location: us-central1
+        goblet-path: test
+        stage: dev
+        envars:  |-
+          SLACK_WEBHOOK:slack,BILLING_ORG:bill,BILLING_ID:bill_id
 ```
 
 
