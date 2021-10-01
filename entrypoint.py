@@ -11,6 +11,7 @@ if __name__ == "__main__":
     envars = sys.argv[5]
 
     os.chdir(goblet_path)
+    subprocess.run(["pip", "install", "-r", "requirements.txt"])
 
     stage_sub_command = ""
     config_sub_command = ""
