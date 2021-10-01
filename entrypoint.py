@@ -11,8 +11,10 @@ if __name__ == "__main__":
     envars = sys.argv[5]
 
     os.chdir(goblet_path)
-    subprocess.run(["pip", "install", "-r", "requirements.txt"])
-
+    pip = subprocess.run(["pip", "install", "-r", "requirements.txt"], capture_output=True)
+    if pip.returncode != 0:
+        raise Exception(pip.stderr)
+    
     stage_sub_command = ""
     config_sub_command = ""
     if stage:
@@ -34,4 +36,6 @@ if __name__ == "__main__":
 
     command = f"goblet deploy --project {project} --location {location} {stage_sub_command} {config_sub_command}"
     # subprocess takes in list of strings. strip to get rid of white space from undefined, optional fields
-    subprocess.run(command.strip().split())
+    goblet = subprocess.run(command.strip().split(), capture_output=True)
+    if goblet.returncode != 0:
+        raise Exception(goblet.stderr)

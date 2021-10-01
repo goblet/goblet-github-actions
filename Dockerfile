@@ -1,4 +1,4 @@
-FROM python:3.9.5-alpine3.13
+FROM python:3.9.7-slim-buster
 
 RUN pip install goblet-gcp
 
