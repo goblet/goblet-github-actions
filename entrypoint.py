@@ -14,6 +14,7 @@ if __name__ == "__main__":
     pip = subprocess.run(["pip", "install", "-r", "requirements.txt"], capture_output=True)
     if pip.returncode != 0:
         raise Exception(pip.stderr)
+    
     stage_sub_command = ""
     config_sub_command = ""
     if stage:
