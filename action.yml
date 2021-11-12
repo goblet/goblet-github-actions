@@ -11,7 +11,7 @@ inputs:
   goblet-path:
     description: Path to a goblet app directory in which `main.py`, `requirements.txt` and `.goblet\` should be stored
     required: false
-    default: ''
+    default: '.'
   stage:
     description: deployment stage
     required: false
