@@ -22,6 +22,12 @@ inputs:
       written as '{k1}:{v1},{k2}:{v2},...'
     required: false
     default: ''
+  buildEnvars:
+    description: |-
+      list of key, value pairs that should be added to the function's build environment variables
+      written as '{k1}:{v1},{k2}:{v2},...'
+    required: false
+    default: ''
 branding:
   icon: upload-cloud
   color: blue
@@ -34,3 +40,4 @@ runs:
     - ${{ inputs.goblet-path }}
     - ${{ inputs.stage }}
     - ${{ inputs.envars }}
+    - ${{ inputs.buildEnvars }}

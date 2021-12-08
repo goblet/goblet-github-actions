@@ -15,6 +15,7 @@ The parameters will be passed to the action through `with`
 | goblet_path  | Path to a goblet app directory in which `main.py`, `requirements.txt` and `.goblet\` should be stored  | Optional  |
 | stage  | Name of stage which should be used | Optional  |
 | envars | list of key, value pairs that should be added to the function's environment variables (written as '{k1}:{v1},{k2}:{v2},...') | Optional
+| buildEnvars | list of key, value pairs that should be added to the function's build environment variables (written as '{k1}:{v1},{k2}:{v2},...') | Optional
 
 
 ## Usage
