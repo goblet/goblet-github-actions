@@ -28,6 +28,14 @@ inputs:
       written as '{k1}:{v1},{k2}:{v2},...'
     required: false
     default: ''
+  command:
+    description: |-
+      Complete goblet command. For example "goblet openapi FUNCTION"
+    required: false
+    default: ''
+outputs:
+  openapispec: 
+    description: 'The openapispec that is generated if it exists'
 branding:
   icon: upload-cloud
   color: blue
@@ -41,3 +49,4 @@ runs:
     - ${{ inputs.stage }}
     - ${{ inputs.envars }}
     - ${{ inputs.buildEnvars }}
+    - ${{ inputs.command }}
