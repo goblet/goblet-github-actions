@@ -57,8 +57,8 @@ if __name__ == "__main__":
     files = glob.glob(".goblet/*.yml")
     if len(files) >= 1:
         with open(files[0], 'r') as f:
-            output_command = ["echo",f"::set-output name=openapispec::{f.read()}"]
-        subprocess.run(output_command, capture_output=True)
+            openapi_spec = f.read().replace("%","%25").replace("\n","%0A").replace("\r","%0D")
+            print(f"::set-output name=openapispec::{openapi_spec}")
 
     if goblet.returncode != 0:
         raise Exception(goblet.stderr)
