@@ -22,7 +22,7 @@ The parameters will be passed to the action through `with`
 
 
 | Name  | Description  |
-|---|---|---|
+|---|---|
 | openapispec  | The full string output of the generated openapispec if one was created  |
 
 ## Usage
@@ -58,6 +58,7 @@ jobs:
         export_default_credentials: true
     - name: goblet deploy
       uses: anovis/goblet-github-actions@v2.3
+      id: deploy
       with:
         project: ${{ env.GCLOUD_PROJECT }}
         location: us-central1
@@ -65,6 +66,10 @@ jobs:
         stage: dev
         envars:  |-
           SLACK_WEBHOOK:slack,BILLING_ORG:bill,BILLING_ID:bill_id
+    - name: echo openapispec
+      run: |
+        echo {{steps.deploy.outputs.openapispec}}
+
 ```
 
 
