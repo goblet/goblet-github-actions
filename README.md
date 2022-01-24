@@ -16,7 +16,14 @@ The parameters will be passed to the action through `with`
 | stage  | Name of stage which should be used | Optional  |
 | envars | list of key, value pairs that should be added to the function's environment variables (written as '{k1}:{v1},{k2}:{v2},...') | Optional
 | buildEnvars | list of key, value pairs that should be added to the function's build environment variables (written as '{k1}:{v1},{k2}:{v2},...') | Optional
+| command | Complete goblet command. For example "goblet openapi FUNCTION" | Optional
 
+## Outputs
+
+
+| Name  | Description  |
+|---|---|---|
+| openapispec  | The full string output of the generated openapispec if one was created  |
 
 ## Usage
 

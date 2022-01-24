@@ -2,6 +2,7 @@ import os
 import sys
 import json
 import subprocess
+import glob
 
 if __name__ == "__main__":
     project = sys.argv[1]
@@ -9,7 +10,8 @@ if __name__ == "__main__":
     goblet_path = sys.argv[3]
     stage = sys.argv[4]
     envars = sys.argv[5]
-    build_envars = sys.argv[5]
+    build_envars = sys.argv[6]
+    custom_command = sys.argv[7]
 
 
     os.chdir(goblet_path)
@@ -44,8 +46,19 @@ if __name__ == "__main__":
                 raise "Build Environment variables are in the wrong format. Should be '{k1}:{v1},{k2}:{v2},...'"
         config_sub_command = f"--config-from-json-string {json.dumps(config, separators=(',', ':'))}"
 
-    command = f"goblet deploy --project {project} --location {location} {stage_sub_command} {config_sub_command}"
+    if custom_command:
+        command = custom_command
+    else:
+        command = f"goblet deploy --project {project} --location {location} {stage_sub_command} {config_sub_command}"
     # subprocess takes in list of strings. strip to get rid of white space from undefined, optional fields
     goblet = subprocess.run(command.strip().split(), capture_output=True)
+
+    # Set openapispec output 
+    files = glob.glob(".goblet/*.yml")
+    if len(files) >= 1:
+        with open(files[0], 'r') as f:
+            openapi_spec = f.read().replace("%","%25").replace("\n","%0A").replace("\r","%0D")
+            print(f"::set-output name=openapispec::{openapi_spec}")
+
     if goblet.returncode != 0:
         raise Exception(goblet.stderr)
