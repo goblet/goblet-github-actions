@@ -57,7 +57,7 @@ jobs:
         service_account_key: ${{ secrets.GCP_SA_KEY }}
         export_default_credentials: true
     - name: goblet deploy
-      uses: anovis/goblet-github-actions@v2.3
+      uses: anovis/goblet-github-actions@v2.5
       id: deploy
       with:
         project: ${{ env.GCLOUD_PROJECT }}
@@ -68,7 +68,7 @@ jobs:
           SLACK_WEBHOOK:slack,BILLING_ORG:bill,BILLING_ID:bill_id
     - name: echo openapispec
       run: |
-        echo {{steps.deploy.outputs.openapispec}}
+        echo "${{steps.deploy.outputs.openapispec}}"
 
 ```
 
