@@ -12,8 +12,17 @@ if __name__ == "__main__":
     envars = sys.argv[5]
     build_envars = sys.argv[6]
     custom_command = sys.argv[7]
+    goblet_version = sys.argv[7]
 
-
+    # install desired version og goblet
+    if goblet_version == "latest":
+        pip = subprocess.run(["pip", "install", "goblet-gcp"], capture_output=True)
+        if pip.returncode != 0:
+            raise Exception(pip.stderr)
+    else:
+        pip = subprocess.run(["pip", "install", f"goblet-gcp=={goblet_version}"], capture_output=True)
+        if pip.returncode != 0:
+            raise Exception(pip.stderr)
     os.chdir(goblet_path)
     pip = subprocess.run(["pip", "install", "-r", "requirements.txt"], capture_output=True)
     if pip.returncode != 0:

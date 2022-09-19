@@ -33,6 +33,10 @@ inputs:
       Complete goblet command. For example "goblet openapi FUNCTION"
     required: false
     default: ''
+  goblet-version:
+    description: Goblet version to use
+    required: false
+    default: 'latest'
 outputs:
   openapispec: 
     description: 'The openapispec that is generated if it exists'
@@ -50,3 +54,4 @@ runs:
     - ${{ inputs.envars }}
     - ${{ inputs.buildEnvars }}
     - ${{ inputs.command }}
+    - ${{ inputs.goblet-version }}
