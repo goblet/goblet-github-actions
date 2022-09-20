@@ -22,7 +22,7 @@ inputs:
       written as '{k1}:{v1},{k2}:{v2},...'
     required: false
     default: ''
-  buildEnvars:
+  build-envars:
     description: |-
       list of key, value pairs that should be added to the function's build environment variables
       written as '{k1}:{v1},{k2}:{v2},...'
@@ -33,6 +33,10 @@ inputs:
       Complete goblet command. For example "goblet openapi FUNCTION"
     required: false
     default: ''
+  goblet-version:
+    description: Goblet version to use
+    required: false
+    default: 'latest'
 outputs:
   openapispec: 
     description: 'The openapispec that is generated if it exists'
@@ -48,5 +52,6 @@ runs:
     - ${{ inputs.goblet-path }}
     - ${{ inputs.stage }}
     - ${{ inputs.envars }}
-    - ${{ inputs.buildEnvars }}
+    - ${{ inputs.build-envars }}
     - ${{ inputs.command }}
+    - ${{ inputs.goblet-version }}
