@@ -15,7 +15,7 @@ The parameters will be passed to the action through `with`
 | goblet-path  | Path to a goblet app directory in which `main.py`, `requirements.txt` and `.goblet\` should be stored  | Optional  |
 | stage  | Name of stage which should be used | Optional  |
 | envars | list of key, value pairs that should be added to the function's environment variables (written as '{k1}:{v1},{k2}:{v2},...') | Optional
-| buildEnvars | list of key, value pairs that should be added to the function's build environment variables (written as '{k1}:{v1},{k2}:{v2},...') | Optional
+| build-envars | list of key, value pairs that should be added to the function's build environment variables (written as '{k1}:{v1},{k2}:{v2},...') | Optional
 | command | Complete goblet command. For example "goblet openapi FUNCTION" | Optional
 | goblet-version | Goblet version to use. Defaults to latest. | Optional
 
@@ -31,7 +31,7 @@ The parameters will be passed to the action through `with`
 1. Create a directory named `.github/workflow/`
 
 2. Create a YAML file, e.g. action_workflow.yml, and place it in the created directory above 
-(requires a step `actions/checkout@v2` to get goblet app and `google-github-actions/setup-gcloud@v0.2.0` to 
+(requires a step `actions/checkout@v2` to get goblet app and `google-github-actions/auth@v0` to 
 get credentials)
 
 3. Example content of the YAML file:
@@ -51,14 +51,13 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@v2
-    - name: Setup Cloud SDK
-      uses: google-github-actions/setup-gcloud@v0.2.0
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v0'
       with:
-        project_id: ${{ env.GCLOUD_PROJECT }}
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
-        export_default_credentials: true
+        workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
+        service_account: 'my-service-account@my-project.iam.gserviceaccount.com'
     - name: goblet deploy
-      uses: anovis/goblet-github-actions@v2.5
+      uses: anovis/goblet-github-actions@v2.6
       id: deploy
       with:
         project: ${{ env.GCLOUD_PROJECT }}
