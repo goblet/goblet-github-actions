@@ -69,7 +69,9 @@ if __name__ == "__main__":
     if len(files) >= 1:
         with open(files[0], 'r') as f:
             openapi_spec = f.read().replace("%","%25").replace("\n","%0A").replace("\r","%0D")
-            print(f"::set-output name=openapispec::{openapi_spec}")
+            if "GITHUB_OUTPUT" in os.environ:
+                with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+                    print(f"openapispec={openapi_spec}", file=f)
 
     if goblet.returncode != 0:
         raise Exception(goblet.stderr)
