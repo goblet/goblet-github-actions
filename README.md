@@ -2,7 +2,7 @@
 
 This Github action allows automated deployment of your Goblet application via Github Actions.
 
-[Goblet](https://github.com/anovis/goblet) is a framework for writing serverless rest apis in python in google cloud. It allows you to quickly create and deploy python apis backed by cloudfunctions.
+[Goblet](https://github.com/goblet/goblet) is a framework for writing serverless rest apis in python in google cloud. It allows you to quickly create and deploy python apis backed by cloudfunctions.
 
 ## Parameters
 
