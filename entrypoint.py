@@ -23,6 +23,11 @@ if __name__ == "__main__":
         pip = subprocess.run(["pip", "install", f"goblet-gcp=={goblet_version}"], capture_output=True)
         if pip.returncode != 0:
             raise Exception(pip.stderr)
+
+    pip = subprocess.run(["pip", "install", "keyrings.google-artifactregistry-auth==1.1.1"], capture_output=True)
+    if pip.returncode != 0:
+        raise Exception(pip.stderr)
+    
     os.chdir(goblet_path)
     pip = subprocess.run(["pip", "install", "-r", "requirements.txt"], capture_output=True)
     if pip.returncode != 0:
