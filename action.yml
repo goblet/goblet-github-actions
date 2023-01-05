@@ -59,4 +59,4 @@ runs:
     - ${{ inputs.build-envars }}
     - ${{ inputs.command }}
     - ${{ inputs.goblet-version }}
-    - ${{ inpute.artifact-auth }}
+    - ${{ inputs.artifact-auth }}
