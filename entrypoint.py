@@ -13,6 +13,7 @@ if __name__ == "__main__":
     build_envars = sys.argv[6]
     custom_command = sys.argv[7]
     goblet_version = sys.argv[8]
+    artifact_auth = sys.argv[9]
 
     # install desired version og goblet
     if goblet_version == "latest":
@@ -24,10 +25,11 @@ if __name__ == "__main__":
         if pip.returncode != 0:
             raise Exception(pip.stderr)
 
-    pip = subprocess.run(["pip", "install", "keyrings.google-artifactregistry-auth==1.1.1"], capture_output=True)
-    if pip.returncode != 0:
-        raise Exception(pip.stderr)
-    
+    if artifact_auth == "yes":
+        pip = subprocess.run(["pip", "install", "keyrings.google-artifactregistry-auth==1.1.1"], capture_output=True)
+        if pip.returncode != 0:
+            raise Exception(pip.stderr)
+        
     os.chdir(goblet_path)
     pip = subprocess.run(["pip", "install", "-r", "requirements.txt"], capture_output=True)
     if pip.returncode != 0:
