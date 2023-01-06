@@ -18,6 +18,7 @@ The parameters will be passed to the action through `with`
 | build-envars | list of key, value pairs that should be added to the function's build environment variables (written as '{k1}:{v1},{k2}:{v2},...') | Optional
 | command | Complete goblet command. For example "goblet openapi FUNCTION" | Optional
 | goblet-version | Goblet version to use. Defaults to latest. | Optional
+| artifact-auth | Enable authentication to Artifact Registry. | Optional
 
 ## Outputs
 
