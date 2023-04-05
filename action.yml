@@ -33,14 +33,18 @@ inputs:
       Complete goblet command. For example "goblet openapi FUNCTION"
     required: false
     default: ""
-  goblet-version:
-    description: Goblet version to use
-    required: false
-    default: "latest"
   artifact-auth:
     description: enable authentication to artifact registry
     required: false
     default: "no"
+  poetry:
+    description: use poetry instead of pip
+    required: false
+    default: "no"
+  requirements:
+    description: filename and path for requirement file
+    required: false
+    default: "requirements.txt"
 outputs:
   openapispec:
     description: "The openapispec that is generated if it exists"
@@ -58,5 +62,6 @@ runs:
     - ${{ inputs.envars }}
     - ${{ inputs.build-envars }}
     - ${{ inputs.command }}
-    - ${{ inputs.goblet-version }}
     - ${{ inputs.artifact-auth }}
+    - ${{ inputs.poetry }}
+    - ${{ inputs.requirements }}
