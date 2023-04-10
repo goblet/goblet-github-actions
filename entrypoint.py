@@ -14,7 +14,8 @@ if __name__ == "__main__":
     custom_command = sys.argv[7]
     artifact_auth = sys.argv[8]
     poetry = sys.argv[9]
-    requirements_file = sys.argv[10]
+    poetry_version = sys.argv[10]
+    requirements_file = sys.argv[11]
 
     if requirements_file == "":
         requirements_file = "requirements.txt"
@@ -30,11 +31,17 @@ if __name__ == "__main__":
     if pip.returncode != 0:
         raise Exception(pip.stderr)
 
-    if poetry == "yes":
+    if poetry == "yes" and poetry_version != "":
+        pip_install_poetry = subprocess.run(["pip", "install", f"poetry=={poetry_version}"], capture_output=True)
         poetry_config = subprocess.run(["poetry", "config", "virtualenvs.create", "false"], capture_output=True)
         poetry_install = subprocess.run(["poetry", "install", "--no-dev", "--no-root"], capture_output=True)
-        if poetry_config.returncode != 0 or poetry_install.returncode != 0:
-            raise Exception(pip.stderr)
+        if pip_install_poetry.returncode != 0 or poetry_config.returncode != 0 or poetry_install.returncode != 0:
+            raise Exception(
+                [pip_install_poetry.stderr,
+                 poetry_config.stderr,
+                 poetry_install.stderr
+                 ]
+            )
 
     stage_sub_command = ""
     config_sub_command = ""

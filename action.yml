@@ -41,6 +41,10 @@ inputs:
     description: use poetry instead of pip
     required: false
     default: "no"
+  poetry_version:
+    description: poetry version to use
+    required: false
+    default: "1.1.14"
   requirements:
     description: filename and path for requirement file
     required: false
@@ -64,4 +68,5 @@ runs:
     - ${{ inputs.command }}
     - ${{ inputs.artifact-auth }}
     - ${{ inputs.poetry }}
+    - ${{ inputs.poetry_verion }}
     - ${{ inputs.requirements }}
