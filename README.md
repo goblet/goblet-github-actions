@@ -103,6 +103,8 @@ The install of dependencies defined in the requirements file is at the first ste
 in the git-hub-action ensuring Goblet is installed at the moment of the 
 deployment.
 
-The install of 
+If you choose poetry, Goblet will not be installed at all unless you 
+included it in the dependency install using poetry.
+
 
 
