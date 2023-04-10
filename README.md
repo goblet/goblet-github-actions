@@ -8,18 +8,19 @@ This Github action allows automated deployment of your Goblet application via Gi
 
 The parameters will be passed to the action through `with`
 
-| Name  | Description                                                                                                                        | Required?  |
-|---|------------------------------------------------------------------------------------------------------------------------------------|---|
-| project  | GCP project                                                                                                                        | Required  |
-| location  | GCP location                                                                                                                       | Required  |
-| goblet-path  | Path to a goblet app directory in which `main.py`, `requirements.txt` and `.goblet\` should be stored                              | Optional  |
-| stage  | Name of stage which should be used                                                                                                 | Optional  |
-| envars | list of key, value pairs that should be added to the function's environment variables (written as '{k1}:{v1},{k2}:{v2},...')       | Optional
-| build-envars | list of key, value pairs that should be added to the function's build environment variables (written as '{k1}:{v1},{k2}:{v2},...') | Optional
-| command | Complete goblet command. For example "goblet openapi FUNCTION"                                                                     | Optional
-| artifact-auth | Enable authentication to Artifact Registry.                                                                                        | Optional
-| poetry | [yes/no] enable use of poetry as dependency management. Default no.                                                                | Optional
-| requirements | Path and filename to requirements file for pip install. Default requirements.txt                                                   | Optional
+| Name           | Description                                                                                                                        | Required?  |
+|----------------|------------------------------------------------------------------------------------------------------------------------------------|---|
+| project        | GCP project                                                                                                                        | Required  |
+| location       | GCP location                                                                                                                       | Required  |
+| goblet-path    | Path to a goblet app directory in which `main.py`, `requirements.txt` and `.goblet\` should be stored                              | Optional  |
+| stage          | Name of stage which should be used                                                                                                 | Optional  |
+| envars         | list of key, value pairs that should be added to the function's environment variables (written as '{k1}:{v1},{k2}:{v2},...')       | Optional
+| build-envars   | list of key, value pairs that should be added to the function's build environment variables (written as '{k1}:{v1},{k2}:{v2},...') | Optional
+| command        | Complete goblet command. For example "goblet openapi FUNCTION"                                                                     | Optional
+| artifact-auth  | Enable authentication to Artifact Registry.                                                                                        | Optional
+| poetry         | [yes/no] enable use of poetry as dependency management. Default no.                                                                | Optional
+| poetry_version | version for poetry. Default 1.1.14.                                                                                                | Optional
+| requirements   | Path and filename to requirements file for pip install. Default requirements.txt                                                   | Optional
 
 ## Outputs
 
@@ -87,23 +88,21 @@ Make sure the service account has the correct permissions to deploy the desired 
 ## Requirements file
 
 Starting from version 3.0 a requirements file is mandatory (if not provided,
-requirements.txt will be used). This is why goblet version parameter and poetry
-version (in case of set to yes poetry) are no longer necessary.  
+requirements.txt will be used). This is why goblet version parameter is no longer necessary.  
 The version for Goblet must be defined in the correspondant requirements file 
-as usually (same for poetry); eg:
+as usually; eg:
 
 ``` Python
 goblet-gcp==0.10.0
 ```
 
-In case of poetry=yes
+In case of poetry=yes you should add also poetry_version argument
 
-```
-poetry==1.4.2
-```
 
 The install of dependencies defined in the requirements file is at the first step
 in the git-hub-action ensuring Goblet is installed at the moment of the 
 deployment.
+
+The install of 
 
 

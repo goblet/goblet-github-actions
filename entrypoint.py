@@ -17,8 +17,6 @@ if __name__ == "__main__":
     poetry_version = sys.argv[10]
     requirements_file = sys.argv[11]
 
-    if requirements_file == "":
-        requirements_file = "requirements.txt"
 
     # install desired version og goblet
     if artifact_auth == "yes":
@@ -31,7 +29,13 @@ if __name__ == "__main__":
     if pip.returncode != 0:
         raise Exception(pip.stderr)
 
-    if poetry == "yes" and poetry_version != "":
+    if poetry != "yes":
+        if requirements_file == "":
+            requirements_file = "requirements.txt"
+        pip = subprocess.run(["pip", "install", "-r", requirements_file], capture_output=True)
+        if pip.returncode != 0:
+            raise Exception(pip.stderr)
+    elif poetry == "yes" and poetry_version != "":
         pip_install_poetry = subprocess.run(["pip", "install", f"poetry=={poetry_version}"], capture_output=True)
         poetry_config = subprocess.run(["poetry", "config", "virtualenvs.create", "false"], capture_output=True)
         poetry_install = subprocess.run(["poetry", "install", "--no-dev", "--no-root"], capture_output=True)
