@@ -25,9 +25,6 @@ if __name__ == "__main__":
             raise Exception(pip.stderr)
 
     os.chdir(goblet_path)
-    pip = subprocess.run(["pip", "install", "-r", requirements_file], capture_output=True)
-    if pip.returncode != 0:
-        raise Exception(pip.stderr)
 
     if poetry != "yes":
         if requirements_file == "":
