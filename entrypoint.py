@@ -12,29 +12,38 @@ if __name__ == "__main__":
     envars = sys.argv[5]
     build_envars = sys.argv[6]
     custom_command = sys.argv[7]
-    goblet_version = sys.argv[8]
-    artifact_auth = sys.argv[9]
+    artifact_auth = sys.argv[8]
+    poetry = sys.argv[9]
+    poetry_version = sys.argv[10]
+    requirements_file = sys.argv[11]
+
 
     # install desired version og goblet
-    if goblet_version == "latest":
-        pip = subprocess.run(["pip", "install", "goblet-gcp"], capture_output=True)
-        if pip.returncode != 0:
-            raise Exception(pip.stderr)
-    else:
-        pip = subprocess.run(["pip", "install", f"goblet-gcp=={goblet_version}"], capture_output=True)
-        if pip.returncode != 0:
-            raise Exception(pip.stderr)
-
     if artifact_auth == "yes":
         pip = subprocess.run(["pip", "install", "keyrings.google-artifactregistry-auth==1.1.1"], capture_output=True)
         if pip.returncode != 0:
             raise Exception(pip.stderr)
-        
+
     os.chdir(goblet_path)
-    pip = subprocess.run(["pip", "install", "-r", "requirements.txt"], capture_output=True)
-    if pip.returncode != 0:
-        raise Exception(pip.stderr)
-    
+
+    if poetry != "yes":
+        if requirements_file == "":
+            requirements_file = "requirements.txt"
+        pip = subprocess.run(["pip", "install", "-r", requirements_file], capture_output=True)
+        if pip.returncode != 0:
+            raise Exception(pip.stderr)
+    elif poetry == "yes" and poetry_version != "":
+        pip_install_poetry = subprocess.run(["pip", "install", f"poetry=={poetry_version}"], capture_output=True)
+        poetry_config = subprocess.run(["poetry", "config", "virtualenvs.create", "false"], capture_output=True)
+        poetry_install = subprocess.run(["poetry", "install", "--no-dev", "--no-root"], capture_output=True)
+        if pip_install_poetry.returncode != 0 or poetry_config.returncode != 0 or poetry_install.returncode != 0:
+            raise Exception(
+                [pip_install_poetry.stderr,
+                 poetry_config.stderr,
+                 poetry_install.stderr
+                 ]
+            )
+
     stage_sub_command = ""
     config_sub_command = ""
     if stage:
@@ -75,7 +84,7 @@ if __name__ == "__main__":
     files = glob.glob(".goblet/*.yml")
     if len(files) >= 1:
         with open(files[0], 'r') as f:
-            openapi_spec = f.read().replace("%","%25").replace("\n","%0A").replace("\r","%0D")
+            openapi_spec = f.read().replace("%", "%25").replace("\n", "%0A").replace("\r", "%0D")
             if "GITHUB_OUTPUT" in os.environ:
                 with open(os.environ["GITHUB_OUTPUT"], "a") as f:
                     print(f"openapispec={openapi_spec}", file=f)
