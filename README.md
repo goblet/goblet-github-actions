@@ -17,8 +17,8 @@ The parameters will be passed to the action through `with`
 | envars         | list of key, value pairs that should be added to the function's environment variables (written as '{k1}:{v1},{k2}:{v2},...')       | Optional
 | build-envars   | list of key, value pairs that should be added to the function's build environment variables (written as '{k1}:{v1},{k2}:{v2},...') | Optional
 | command        | Complete goblet command. For example "goblet openapi FUNCTION"                                                                     | Optional
-| artifact-auth  | Enable authentication to Artifact Registry.                                                                                        | Optional
-| poetry         | [yes/no] enable use of poetry as dependency management. Default no.                                                                | Optional
+| artifact-auth  | (yes or no) Enable authentication to Artifact Registry. Default no.                                                                | Optional
+| poetry         | (yes or no) Enable use of poetry as dependency management. Default no.                                                             | Optional
 | poetry_version | version for poetry. Default 1.1.14.                                                                                                | Optional
 | requirements   | Path and filename to requirements file for pip install. Default requirements.txt                                                   | Optional
 
@@ -87,7 +87,7 @@ Make sure the service account has the correct permissions to deploy the desired 
 
 ## Requirements file
 
-Starting from version 3.0 a requirements file is mandatory (if not provided,
+Specify a custom filename to install rerquirements from (if not provided,
 requirements.txt will be used). This is why goblet version parameter is no longer necessary.  
 The version for Goblet must be defined in the correspondant requirements file 
 as usually; eg:
@@ -96,15 +96,8 @@ as usually; eg:
 goblet-gcp==0.10.0
 ```
 
-In case of poetry=yes you should add also poetry_version argument
-
-
-The install of dependencies defined in the requirements file is at the first step
-in the git-hub-action ensuring Goblet is installed at the moment of the 
-deployment.
-
-If you choose poetry, Goblet will not be installed at all unless you 
-included it in the dependency install using poetry.
+In case of poetry=yes you can add a poetry_version argument. the default version is 1.4.1
+Make sure goblet is a required dependency.
 
 
 
