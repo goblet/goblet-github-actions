@@ -19,7 +19,6 @@ if __name__ == "__main__":
     apt_packages = sys.argv[12]
 
     if apt_packages:
-        # apt-get install ffmpeg libsm6 libxext6 -y
         command = ["apt-get", "install", "-y"]
         command.extend([package.strip() for package in apt_packages.split(',')])
         apt = subprocess.run(command, capture_output=True)
