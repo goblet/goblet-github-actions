@@ -76,3 +76,4 @@ runs:
     - ${{ inputs.poetry }}
     - ${{ inputs.poetry_verion }}
     - ${{ inputs.requirements }}
+    - ${{ inputs.apt_packages }}
