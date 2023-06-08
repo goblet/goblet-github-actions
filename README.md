@@ -21,6 +21,7 @@ The parameters will be passed to the action through `with`
 | poetry         | (yes or no) Enable use of poetry as dependency management. Default no.                                                             | Optional
 | poetry_version | version for poetry. Default 1.1.14.                                                                                                | Optional
 | requirements   | Path and filename to requirements file for pip install. Default requirements.txt                                                   | Optional
+| apt_packages   | List of packages to apt install before running the deploy. Some python dependencies like cv2 require additional apt packages                                                   | Optional
 
 ## Outputs
 
