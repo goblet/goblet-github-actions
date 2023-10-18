@@ -64,8 +64,8 @@ branding:
 runs:
   using: "docker"
   image: "Dockerfile"
-  env:
-    PYTHON_VERSION: 3.11.4
+  PYTHON_VERSION:
+    - "3.11.4"
   args:
     - ${{ inputs.project }}
     - ${{ inputs.location }}
