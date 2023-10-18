@@ -66,5 +66,5 @@ runs:
   steps:
     - run: |
         docker build --build-arg PYTHON_VERSION=${{ inputs.python_version }} -t custom-image .
-        docker run custom-image --project ${{ inputs.project }} --location ${{ inputs.location }} --goblet_path ${{ inputs.goblet-path }} --stage ${{ inputs.stage }} --envars ${{ inputs.envars }} --build_envars ${{ inputs.build-envars }} --custom_command ${{ inputs.command }} --artifact_auth ${{ inputs.artifact-auth }} --poetry ${{ inputs.poetry }} --poetry_version ${{ inputs.poetry_version }} --requirements_file ${{ inputs.requirements }}
+        docker run custom-image "--project ${{ inputs.project }} --location ${{ inputs.location }} --goblet_path ${{ inputs.goblet-path }} --stage ${{ inputs.stage }} --envars ${{ inputs.envars }} --build_envars ${{ inputs.build-envars }} --custom_command ${{ inputs.command }} --artifact_auth ${{ inputs.artifact-auth }} --poetry ${{ inputs.poetry }} --poetry_version ${{ inputs.poetry_version }} --requirements_file ${{ inputs.requirements }}"
       shell: bash
