@@ -68,5 +68,5 @@ runs:
     - ${{ inputs.command }}
     - ${{ inputs.artifact-auth }}
     - ${{ inputs.poetry }}
-    - ${{ inputs.poetry_verion }}
+    - ${{ inputs.poetry_version }}
     - ${{ inputs.requirements }}
