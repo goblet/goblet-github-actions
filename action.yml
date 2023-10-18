@@ -65,7 +65,7 @@ runs:
   using: "docker"
   image: "Dockerfile"
   env:
-    PYTHON_VERSION: ${{ inputs.python_version }}
+    PYTHON_VERSION: 3.11.4
   args:
     - ${{ inputs.project }}
     - ${{ inputs.location }}
