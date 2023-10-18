@@ -24,8 +24,7 @@ if __name__ == "__main__":
         if pip.returncode != 0:
             raise Exception(pip.stderr)
 
-    #os.chdir(goblet_path)
-    os.getcwd()
+    os.chdir(goblet_path)
 
     if poetry != "yes":
         if requirements_file == "":
