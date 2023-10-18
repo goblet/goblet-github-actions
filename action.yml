@@ -17,13 +17,13 @@ inputs:
   stage:
     description: deployment stage
     required: false
-    default: '""'
+    default: """"
   envars:
     description: |-
       list of key, value pairs that should be added to the function's environment variables
       written as '{k1}:{v1},{k2}:{v2},...'
     required: false
-    default: '""'
+    default: """"
   build-envars:
     description: |-
       list of key, value pairs that should be added to the function's build environment variables
