@@ -29,7 +29,7 @@ inputs:
       list of key, value pairs that should be added to the function's build environment variables
       written as '{k1}:{v1},{k2}:{v2},...'
     required: false
-    default: '""'
+    default: "\"\""
   command:
     description: |-
       Complete goblet command. For example "goblet openapi FUNCTION"
