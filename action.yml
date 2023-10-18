@@ -29,7 +29,7 @@ inputs:
       list of key, value pairs that should be added to the function's build environment variables
       written as '{k1}:{v1},{k2}:{v2},...'
     required: false
-    default: "\"\""
+    default: '""'
   command:
     description: |-
       Complete goblet command. For example "goblet openapi FUNCTION"
@@ -67,5 +67,7 @@ runs:
     - run: |
         docker build --build-arg PYTHON_VERSION=${{ inputs.python_version }} -t custom-image $GITHUB_ACTION_PATH
         echo "${{ inputs.project }} ${{ inputs.location }} ${{ inputs.goblet-path }} ${{ inputs.stage }} ${{ inputs.envars }} ${{ inputs.build-envars }} ${{ inputs.command }} ${{ inputs.artifact-auth }} ${{ inputs.poetry }} ${{ inputs.poetry_version }} ${{ inputs.requirements }}" 
+        pwd
+        cd /
         docker run custom-image ${{ inputs.project }} ${{ inputs.location }} ${{ inputs.goblet-path }} ${{ inputs.stage }} ${{ inputs.envars }} ${{ inputs.build-envars }} ${{ inputs.command }} ${{ inputs.artifact-auth }} ${{ inputs.poetry }} ${{ inputs.poetry_version }} ${{ inputs.requirements }}
       shell: bash
