@@ -32,7 +32,7 @@ if __name__ == "__main__":
         pip = subprocess.run(["pip", "install", "-r", requirements_file], capture_output=True)
         if pip.returncode != 0:
             raise Exception(pip.stderr)
-    elif poetry == "yes" and poetry_version z!="":
+    elif poetry == "yes" and poetry_version != "":
         pip_install_poetry = subprocess.run(["pip", "install", f"poetry"], capture_output=True)
         poetry_config = subprocess.run(["poetry", "config", "virtualenvs.create", "false"], capture_output=True)
         poetry_install = subprocess.run(["poetry", "install", "--no-dev", "--no-root"], capture_output=True)
