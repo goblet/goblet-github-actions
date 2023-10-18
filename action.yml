@@ -49,6 +49,10 @@ inputs:
     description: filename and path for requirement file
     required: false
     default: "requirements.txt"
+  dockerfile:
+    description: Dockerfile
+    required: false
+    default: ""
 outputs:
   openapispec:
     description: "The openapispec that is generated if it exists"
@@ -57,7 +61,7 @@ branding:
   color: blue
 runs:
   using: "docker"
-  image: "Dockerfile"
+  image: "Dockerfile_"${{ inputs.dockerfile }}
   args:
     - ${{ inputs.project }}
     - ${{ inputs.location }}
