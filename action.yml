@@ -34,7 +34,7 @@ inputs:
     description: |-
       Complete goblet command. For example "goblet openapi FUNCTION"
     required: false
-    default: '""'
+    default: "\"\""
   artifact-auth:
     description: enable authentication to artifact registry
     required: false
