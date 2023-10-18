@@ -51,7 +51,10 @@ inputs:
     description: filename and path for requirement file
     required: false
     default: "requirements.txt"
-
+  python_version:
+    description: python version
+    required: false
+    default: "3.11.4"
 outputs:
   openapispec:
     description: "The openapispec that is generated if it exists"
@@ -60,9 +63,9 @@ branding:
   color: blue
 runs:
   using: "docker"
+  image: "Dockerfile"
   env:
-    dockerfile: "Dockerfile"
-  image: ${{ dockerfile }}
+    PYTHON_VERSION: ${{ inputs.python_version }}
   args:
     - ${{ inputs.project }}
     - ${{ inputs.location }}

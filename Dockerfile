@@ -1,4 +1,5 @@
-FROM python:3.10.11-slim-buster
+ARG PYTHON_VERSION=3.10.11
+FROM python:${PYTHON_VERSION}-slim-buster
 
 RUN apt-get update 
 
