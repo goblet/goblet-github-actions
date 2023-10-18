@@ -69,6 +69,7 @@ runs:
         echo "${{ inputs.project }} ${{ inputs.location }} ${{ inputs.goblet-path }} ${{ inputs.stage }} ${{ inputs.envars }} ${{ inputs.build-envars }} ${{ inputs.command }} ${{ inputs.artifact-auth }} ${{ inputs.poetry }} ${{ inputs.poetry_version }} ${{ inputs.requirements }}" 
         pwd
         cd ..
+        pwd
         ls
         docker run custom-image ${{ inputs.project }} ${{ inputs.location }} ${{ inputs.goblet-path }} ${{ inputs.stage }} ${{ inputs.envars }} ${{ inputs.build-envars }} ${{ inputs.command }} ${{ inputs.artifact-auth }} ${{ inputs.poetry }} ${{ inputs.poetry_version }} ${{ inputs.requirements }}
       shell: bash
