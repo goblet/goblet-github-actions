@@ -32,15 +32,15 @@ if __name__ == "__main__":
         pip = subprocess.run(["pip", "install", "-r", requirements_file], capture_output=True)
         if pip.returncode != 0:
             raise Exception(pip.stderr)
-    elif poetry == "yes":
-        pip_install_poetry = subprocess.run(["pip", "install", f"poetry==1.1.4"], capture_output=True)
+    elif poetry == "yes" and poetry_version != "":
+        pip_install_poetry = subprocess.run(["pip", "install", f"poetry"], capture_output=True)
         poetry_config = subprocess.run(["poetry", "config", "virtualenvs.create", "false"], capture_output=True)
         poetry_install = subprocess.run(["poetry", "install", "--no-dev", "--no-root"], capture_output=True)
         if pip_install_poetry.returncode != 0 or poetry_config.returncode != 0 or poetry_install.returncode != 0:
             raise Exception(
-                [pip_install_poetry.stderr,
-                 poetry_config.stderr,
-                 poetry_install.stderr
+                [f"***** INSTALL POETRY {pip_install_poetry.stderr}",
+                 f"***** POETRY CONFIG  {poetry_config.stderr}",
+                 f"***** POETRY {poetry_config.stderr}"
                  ]
             )
 
