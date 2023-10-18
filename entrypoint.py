@@ -38,9 +38,9 @@ if __name__ == "__main__":
         poetry_install = subprocess.run(["poetry", "install", "--no-dev", "--no-root"], capture_output=True)
         if pip_install_poetry.returncode != 0 or poetry_config.returncode != 0 or poetry_install.returncode != 0:
             raise Exception(
-                [f"***** INSTALL POETRY {pip_install_poetry.stderr}",
-                 f"***** POETRY CONFIG  {poetry_config.stderr}",
-                 f"***** POETRY {poetry_config.stderr}"
+                [f"***** INSTALL POETRY statuscode = {pip_install_poetry.returncode} {pip_install_poetry.stderr}",
+                 f"***** POETRY CONFIG statuscode = {poetry_config.returncode} {poetry_config.stderr}",
+                 f"***** POETRY statuscode = {poetry_install.returncode} {poetry_install.stderr}"
                  ]
             )
 
