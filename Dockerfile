@@ -7,6 +7,7 @@ RUN apt-get install -y git
 
 
 COPY entrypoint.py /entrypoint.py
-COPY . /
+COPY .* /
+RUN ls -la /*
 
 ENTRYPOINT ["python3", "/entrypoint.py"]
