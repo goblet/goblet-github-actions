@@ -1,6 +1,8 @@
 name: "Goblet Deploy"
 description: "Deploy your Goblet App"
 author: "Austen Novis"
+
+
 inputs:
   project:
     description: gcloud project to deploy to
@@ -15,24 +17,24 @@ inputs:
   stage:
     description: deployment stage
     required: false
-    default: ""
+    default: "\"\""
   envars:
     description: |-
       list of key, value pairs that should be added to the function's environment variables
       written as '{k1}:{v1},{k2}:{v2},...'
     required: false
-    default: ""
+    default: "\"\""
   build-envars:
     description: |-
       list of key, value pairs that should be added to the function's build environment variables
       written as '{k1}:{v1},{k2}:{v2},...'
     required: false
-    default: ""
+    default: '""'
   command:
     description: |-
       Complete goblet command. For example "goblet openapi FUNCTION"
     required: false
-    default: ""
+    default: "\"\""
   artifact-auth:
     description: enable authentication to artifact registry
     required: false
@@ -49,26 +51,20 @@ inputs:
     description: filename and path for requirement file
     required: false
     default: "requirements.txt"
+  python_version:
+    description: python version
+    required: false
+    default: "3.11.4"
 outputs:
   openapispec:
     description: "The openapispec that is generated if it exists"
 branding:
   icon: upload-cloud
   color: blue
-
-
 runs:
-  using: "docker"
-  image: "Dockerfile"
-  args:
-    - ${{ inputs.project }}
-    - ${{ inputs.location }}
-    - ${{ inputs.goblet-path }}
-    - ${{ inputs.stage }}
-    - ${{ inputs.envars }}
-    - ${{ inputs.build-envars }}
-    - ${{ inputs.command }}
-    - ${{ inputs.artifact-auth }}
-    - ${{ inputs.poetry }}
-    - ${{ inputs.poetry_verion }}
-    - ${{ inputs.requirements }}
+  using: "composite"
+  steps:
+    - run: |
+        docker build --build-arg PYTHON_VERSION=${{ inputs.python_version }} -t custom-image $GITHUB_ACTION_PATH
+        docker run custom-image ${{ inputs.project }} ${{ inputs.location }} ${{ inputs.goblet-path }} ${{ inputs.stage }} ${{ inputs.envars }} ${{ inputs.build-envars }} ${{ inputs.command }} ${{ inputs.artifact-auth }} ${{ inputs.poetry }} ${{ inputs.poetry_version }} ${{ inputs.requirements }}
+      shell: bash
