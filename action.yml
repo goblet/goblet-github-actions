@@ -60,7 +60,7 @@ branding:
 runs:
   using: "docker"
   env:
-    test: ${{ inputs.poetry_version }}
+    TEST: ${{ inputs.poetry_version }}
   image: "Dockerfile"
 
   args:
