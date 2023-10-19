@@ -24,7 +24,7 @@ if __name__ == "__main__":
         if pip.returncode != 0:
             raise Exception(pip.stderr)
 
-    #os.chdir(goblet_path)ß
+    os.chdir(goblet_path)
 
     raise Exception(
         [os.getcwd(), os.listdir(".")
