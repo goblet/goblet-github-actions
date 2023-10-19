@@ -54,7 +54,7 @@ inputs:
   python_version:
     description: python version
     required: false
-    default: "3.11.4"
+    default: "3.9.7"
 outputs:
   openapispec:
     description: "The openapispec that is generated if it exists"

@@ -26,11 +26,6 @@ if __name__ == "__main__":
 
     os.chdir(goblet_path)
 
-    raise Exception(
-        [os.getcwd(), os.listdir(".")
-         ]
-    )
-    exit(1)
     if poetry != "yes":
         if requirements_file == "":
             requirements_file = "requirements.txt"
