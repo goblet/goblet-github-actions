@@ -6,7 +6,6 @@ RUN apt-get update
 RUN apt-get install -y git
 
 
-COPY entrypoint.py /entrypoint.py
 COPY . /
 RUN ls /
 
