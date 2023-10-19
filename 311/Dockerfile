@@ -8,4 +8,4 @@ RUN apt-get install -y git
 
 COPY ../../entrypoint.py .
 
-ENTRYPOINT ["python3", "/entrypoint.py"]
+ENTRYPOINT ["python3", "entrypoint.py"]
