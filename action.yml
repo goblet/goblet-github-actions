@@ -57,7 +57,7 @@ branding:
   color: blue
 runs:
   using: "docker"
-  image: "Dockerfile_311"
+  image: "311/Dockerfile"
   args:
     - ${{ inputs.project }}
     - ${{ inputs.location }}
