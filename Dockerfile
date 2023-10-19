@@ -7,6 +7,5 @@ RUN apt-get install -y git
 
 
 COPY . /
-RUN ls /
 
 ENTRYPOINT ["python3", "/entrypoint.py"]
