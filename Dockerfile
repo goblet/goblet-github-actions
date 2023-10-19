@@ -1,6 +1,4 @@
 ARG PYTHON_VERSION=3.10.11
-ARG TEST=3.10.11
-
 FROM python:${TEST}-slim-buster
 
 RUN apt-get update 
