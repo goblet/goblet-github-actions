@@ -65,10 +65,7 @@ runs:
   using: "composite"
   steps:
     - run: |
-        echo $GITHUB_ACTION_PATH
-        ls $GITHUB_ACTION_PATH
-        shopt -s extglob
-        cp -r ./!(Dockerfile) $GITHUB_ACTION_PATH
+        cp -r . $GITHUB_ACTION_PATH/temp
         docker build --build-arg PYTHON_VERSION=${{ inputs.python_version }} -t custom-image $GITHUB_ACTION_PATH
-        docker run custom-image ${{ inputs.project }} ${{ inputs.location }} ${{ inputs.goblet-path }} ${{ inputs.stage }} ${{ inputs.envars }} ${{ inputs.build-envars }} ${{ inputs.command }} ${{ inputs.artifact-auth }} ${{ inputs.poetry }} ${{ inputs.poetry_version }} ${{ inputs.requirements }}
+        docker run custom-image ${{ inputs.project }} ${{ inputs.location }} "/temp/${{ inputs.goblet-path }}" ${{ inputs.stage }} ${{ inputs.envars }} ${{ inputs.build-envars }} ${{ inputs.command }} ${{ inputs.artifact-auth }} ${{ inputs.poetry }} ${{ inputs.poetry_version }} ${{ inputs.requirements }}
       shell: bash
