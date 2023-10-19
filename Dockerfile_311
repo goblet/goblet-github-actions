@@ -1,0 +1,10 @@
+ARG PYTHON_VERSION=3.11.4
+FROM python:${PYTHON_VERSION}-slim-buster
+
+RUN apt-get update 
+
+RUN apt-get install -y git
+
+COPY entrypoint.py /entrypoint.py
+
+ENTRYPOINT ["python3", "/entrypoint.py"]
