@@ -5,7 +5,7 @@ RUN apt-get update
 
 RUN apt-get install -y git
 
-WORKDIR /
+
 COPY ../../entrypoint.py .
 
 ENTRYPOINT ["python3", "/entrypoint.py"]
