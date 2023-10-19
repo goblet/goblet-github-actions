@@ -55,9 +55,14 @@ outputs:
 branding:
   icon: upload-cloud
   color: blue
+
+
 runs:
   using: "docker"
-  image: "311/Dockerfile"
+  env:
+    test: ${{ inputs.poetry_version }}
+  image: "Dockerfile"
+
   args:
     - ${{ inputs.project }}
     - ${{ inputs.location }}
