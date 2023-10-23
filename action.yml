@@ -54,22 +54,7 @@ inputs:
   python_version:
     description: python version
     required: false
-  wip:
-    description: filename and path for requirement file
-    required: true
-  wip_provider:
-    description: filename and path for requirement file
-    required: true
-  wip_project_id:
-    description: filename and path for requirement file
-    required: true
-  wip_project_name:
-    description: filename and path for requirement file
-    required: true
-  service_account:
-    description: filename and path for requirement file
-    required: true
-
+    default: "3.9.7"
 outputs:
   openapispec:
     description: "The openapispec that is generated if it exists"
@@ -79,18 +64,6 @@ branding:
 runs:
   using: "composite"
   steps:
-    - id: "auth"
-      name: "Authenticate to Google Cloud"
-      uses: "google-github-actions/auth@v1.0.0"
-      with:
-        workload_identity_provider: "projects/${{ inputs.wip_project_id }}/locations/global/workloadIdentityPools/${{ inputs.wip }}/providers/${{ inputs.wip_provider }}"
-        service_account: "${{ inputs.service_account }}@${{ inputs.wip_project_name }}.iam.gserviceaccount.com"
-    - name: Setup Cloud SDK
-      uses: google-github-actions/setup-gcloud@v1.1.0
-    - name: Setup Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ inputs.python_version }}
     - run: |
         cp -r . $GITHUB_ACTION_PATH/deploy-tmp
         docker build \
@@ -108,6 +81,4 @@ runs:
           ${{ inputs.poetry }} \
           ${{ inputs.poetry_version }} \
           ${{ inputs.requirements }}
-        
-
       shell: bash
