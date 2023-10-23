@@ -1,4 +1,5 @@
-FROM python:3.9.7-slim-buster
+ARG PYTHON_VERSION=3.9.7
+FROM python:${PYTHON_VERSION}-slim-buster
 
 RUN apt-get update 
 

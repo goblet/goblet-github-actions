@@ -54,7 +54,6 @@ inputs:
   python_version:
     description: python version
     required: false
-    default: "3.9.7"
   wip:
     description: filename and path for requirement file
     required: true
