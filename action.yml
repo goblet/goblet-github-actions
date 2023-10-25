@@ -1,8 +1,6 @@
 name: "Goblet Deploy"
 description: "Deploy your Goblet App"
 author: "Austen Novis"
-
-
 inputs:
   project:
     description: gcloud project to deploy to
@@ -17,24 +15,24 @@ inputs:
   stage:
     description: deployment stage
     required: false
-    default: "\"\""
+    default: ""
   envars:
     description: |-
       list of key, value pairs that should be added to the function's environment variables
       written as '{k1}:{v1},{k2}:{v2},...'
     required: false
-    default: "\"\""
+    default: ""
   build-envars:
     description: |-
       list of key, value pairs that should be added to the function's build environment variables
       written as '{k1}:{v1},{k2}:{v2},...'
     required: false
-    default: '""'
+    default: ""
   command:
     description: |-
       Complete goblet command. For example "goblet openapi FUNCTION"
     required: false
-    default: "\"\""
+    default: ""
   artifact-auth:
     description: enable authentication to artifact registry
     required: false
@@ -51,25 +49,12 @@ inputs:
     description: filename and path for requirement file
     required: false
     default: "requirements.txt"
-  python_version:
-    description: python version
+  apt_packages:
+    description: |-
+      List of packages to apt install before running the deploy. Some python dependencies 
+      like cv2 require additional apt packages. Comma delimited: `dep1,dep2,dep3...`
     required: false
-  wip:
-    description: filename and path for requirement file
-    required: true
-  wip_provider:
-    description: filename and path for requirement file
-    required: true
-  wip_project_id:
-    description: filename and path for requirement file
-    required: true
-  wip_project_name:
-    description: filename and path for requirement file
-    required: true
-  service_account:
-    description: filename and path for requirement file
-    required: true
-
+    default: ""
 outputs:
   openapispec:
     description: "The openapispec that is generated if it exists"
@@ -77,37 +62,18 @@ branding:
   icon: upload-cloud
   color: blue
 runs:
-  using: "composite"
-  steps:
-    - id: "auth"
-      name: "Authenticate to Google Cloud"
-      uses: "google-github-actions/auth@v1.0.0"
-      with:
-        workload_identity_provider: "projects/${{ inputs.wip_project_id }}/locations/global/workloadIdentityPools/${{ inputs.wip }}/providers/${{ inputs.wip_provider }}"
-        service_account: "${{ inputs.service_account }}@${{ inputs.wip_project_name }}.iam.gserviceaccount.com"
-    - name: Setup Cloud SDK
-      uses: google-github-actions/setup-gcloud@v1.1.0
-    - name: Setup Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ inputs.python_version }}
-    - run: |
-        cp -r . $GITHUB_ACTION_PATH/deploy-tmp
-        docker build \
-          --build-arg PYTHON_VERSION=${{ inputs.python_version }} \
-          -t custom-image $GITHUB_ACTION_PATH
-        docker run custom-image \
-          ${{ inputs.project }} \
-          ${{ inputs.location }} \
-          "/deploy-tmp/${{ inputs.goblet-path }}" \
-          ${{ inputs.stage }} \
-          ${{ inputs.envars }} \
-          ${{ inputs.build-envars }} \
-          ${{ inputs.command }} \
-          ${{ inputs.artifact-auth }} \
-          ${{ inputs.poetry }} \
-          ${{ inputs.poetry_version }} \
-          ${{ inputs.requirements }}
-        
-
-      shell: bash
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.project }}
+    - ${{ inputs.location }}
+    - ${{ inputs.goblet-path }}
+    - ${{ inputs.stage }}
+    - ${{ inputs.envars }}
+    - ${{ inputs.build-envars }}
+    - ${{ inputs.command }}
+    - ${{ inputs.artifact-auth }}
+    - ${{ inputs.poetry }}
+    - ${{ inputs.poetry_verion }}
+    - ${{ inputs.requirements }}
+    - ${{ inputs.apt_packages }}
