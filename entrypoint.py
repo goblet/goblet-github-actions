@@ -16,7 +16,14 @@ if __name__ == "__main__":
     poetry = sys.argv[9]
     poetry_version = sys.argv[10]
     requirements_file = sys.argv[11]
+    apt_packages = sys.argv[12]
 
+    if apt_packages:
+        command = ["apt-get", "install", "-y"]
+        command.extend([package.strip() for package in apt_packages.split(',')])
+        apt = subprocess.run(command, capture_output=True)
+        if apt.returncode != 0:
+            raise Exception(apt.stderr)
 
     # install desired version og goblet
     if artifact_auth == "yes":
@@ -35,12 +42,12 @@ if __name__ == "__main__":
     elif poetry == "yes" and poetry_version != "":
         pip_install_poetry = subprocess.run(["pip", "install", f"poetry=={poetry_version}"], capture_output=True)
         poetry_config = subprocess.run(["poetry", "config", "virtualenvs.create", "false"], capture_output=True)
-        poetry_install = subprocess.run(["poetry", "install", "--no-dev", "--no-root", "--directory=."], capture_output=True)
+        poetry_install = subprocess.run(["poetry", "install", "--no-dev", "--no-root"], capture_output=True)
         if pip_install_poetry.returncode != 0 or poetry_config.returncode != 0 or poetry_install.returncode != 0:
             raise Exception(
-                [f"***** INSTALL POETRY statuscode = {pip_install_poetry.returncode} {pip_install_poetry.stderr}",
-                 f"***** POETRY CONFIG statuscode = {poetry_config.returncode} {poetry_config.stderr}",
-                 f"***** POETRY statuscode = {poetry_install.returncode} {poetry_install.stderr}"
+                [pip_install_poetry.stderr,
+                 poetry_config.stderr,
+                 poetry_install.stderr
                  ]
             )
 
