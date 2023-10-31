@@ -16,7 +16,14 @@ if __name__ == "__main__":
     poetry = sys.argv[9]
     poetry_version = sys.argv[10]
     requirements_file = sys.argv[11]
+    apt_packages = sys.argv[12]
 
+    if apt_packages:
+        command = ["apt-get", "install", "-y"]
+        command.extend([package.strip() for package in apt_packages.split(',')])
+        apt = subprocess.run(command, capture_output=True)
+        if apt.returncode != 0:
+            raise Exception(apt.stderr)
 
     # install desired version og goblet
     if artifact_auth == "yes":

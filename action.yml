@@ -49,6 +49,12 @@ inputs:
     description: filename and path for requirement file
     required: false
     default: "requirements.txt"
+  apt_packages:
+    description: |-
+      List of packages to apt install before running the deploy. Some python dependencies 
+      like cv2 require additional apt packages. Comma delimited: `dep1,dep2,dep3...`
+    required: false
+    default: ""
 outputs:
   openapispec:
     description: "The openapispec that is generated if it exists"
@@ -70,3 +76,4 @@ runs:
     - ${{ inputs.poetry }}
     - ${{ inputs.poetry_verion }}
     - ${{ inputs.requirements }}
+    - ${{ inputs.apt_packages }}
