@@ -88,7 +88,7 @@ Make sure the service account has the correct permissions to deploy the desired 
 
 ## Requirements file
 
-Starting from version 3.0 a requirements file is mandatory (if not provided,
+Specify a custom filename to install rerquirements from (if not provided,
 requirements.txt will be used). This is why goblet version parameter is no longer necessary.  
 The version for Goblet must be defined in the correspondant requirements file 
 as usually; eg:
