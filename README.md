@@ -97,15 +97,8 @@ as usually; eg:
 goblet-gcp==0.10.0
 ```
 
-In case of poetry=yes you should add also poetry_version argument
-
-
-The install of dependencies defined in the requirements file is at the first step
-in the git-hub-action ensuring Goblet is installed at the moment of the 
-deployment.
-
-If you choose poetry, Goblet will not be installed at all unless you 
-included it in the dependency install using poetry.
+In case of poetry=yes you can add a poetry_version argument. the default version is 1.4.1
+Make sure goblet is a required dependency.
 
 
 
