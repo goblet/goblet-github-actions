@@ -17,10 +17,11 @@ The parameters will be passed to the action through `with`
 | envars         | list of key, value pairs that should be added to the function's environment variables (written as '{k1}:{v1},{k2}:{v2},...')       | Optional
 | build-envars   | list of key, value pairs that should be added to the function's build environment variables (written as '{k1}:{v1},{k2}:{v2},...') | Optional
 | command        | Complete goblet command. For example "goblet openapi FUNCTION"                                                                     | Optional
-| artifact-auth  | Enable authentication to Artifact Registry.                                                                                        | Optional
-| poetry         | [yes/no] enable use of poetry as dependency management. Default no.                                                                | Optional
+| artifact-auth  | (yes or no) Enable authentication to Artifact Registry. Default no.                                                                | Optional
+| poetry         | (yes or no) Enable use of poetry as dependency management. Default no.                                                             | Optional
 | poetry_version | version for poetry. Default 1.1.14.                                                                                                | Optional
 | requirements   | Path and filename to requirements file for pip install. Default requirements.txt                                                   | Optional
+| apt_packages   | List of packages to apt install before running the deploy. Some python dependencies like cv2 require additional apt packages                                                   | Optional
 
 ## Outputs
 
