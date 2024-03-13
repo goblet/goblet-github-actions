@@ -85,6 +85,7 @@ if __name__ == "__main__":
     else:
         command = f"goblet deploy --project {project} --location {location} {stage_sub_command} {config_sub_command}"
     # subprocess takes in list of strings. strip to get rid of white space from undefined, optional fields
+    print(f"Running command {command}")
     goblet = subprocess.run(command.strip().split(), capture_output=True)
 
     # Set openapispec output 
@@ -97,4 +98,4 @@ if __name__ == "__main__":
                     print(f"openapispec={openapi_spec}", file=f)
 
     if goblet.returncode != 0:
-        raise Exception(f"Goblet deploy returncode {goblet.returncode}. Messsage {goblet.stderr}")
+        raise Exception(f"Goblet deploy returncode {goblet.returncode}. Messsage Stderr: {goblet.stderr} Messsage Stdout: {goblet.stdout}")
