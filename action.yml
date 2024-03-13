@@ -44,7 +44,7 @@ inputs:
   poetry_version:
     description: poetry version to use
     required: false
-    default: "1.1.14"
+    default: "1.8.2"
   requirements:
     description: filename and path for requirement file
     required: false
