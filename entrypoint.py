@@ -97,4 +97,4 @@ if __name__ == "__main__":
                     print(f"openapispec={openapi_spec}", file=f)
 
     if goblet.returncode != 0:
-        raise Exception(goblet.stderr)
+        raise Exception(f"Goblet deploy returncode {goblet.returncode}. Messsage {goblet.stderr}")
