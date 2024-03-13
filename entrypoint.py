@@ -46,10 +46,10 @@ if __name__ == "__main__":
         poetry_requirements = subprocess.run(["poetry", "export", "-f", "requirements.txt", "-o", "requirements.txt"], capture_output=True)
         if pip_install_poetry.returncode != 0 or poetry_config.returncode != 0 or poetry_install.returncode != 0 or poetry_requirements.returncode != 0:
             raise Exception(
-                [f"PIP INSTALL STDERR returncode= {pip_install_poetry.returncode} {pip_install_poetry.stderr}",
-                 f"POETRY CONFIG STDERR returncode= {poetry_config.returncode} {poetry_config.stderr}",
-                 f"POETRY INSTALL STDERR returncode= {poetry_install.returncode} {poetry_install.stderr}",
-                 f"POETRY REQUIREMENTS STDERR returncode= {poetry_requirements.returncode} {poetry_requirements.stderr}"
+                [f"Pip install stderr returncode= {pip_install_poetry.returncode} {pip_install_poetry.stderr}",
+                 f"Poetry config stderr returncode= {poetry_config.returncode} {poetry_config.stderr}",
+                 f"Poetry install stderr returncode= {poetry_install.returncode} {poetry_install.stderr}",
+                 f"Poetry export requirements stderr returncode= {poetry_requirements.returncode} {poetry_requirements.stderr}"
                  ]
             )
 
@@ -87,7 +87,6 @@ if __name__ == "__main__":
     else:
         command = f"goblet deploy --project {project} --location {location} {stage_sub_command} {config_sub_command}"
     # subprocess takes in list of strings. strip to get rid of white space from undefined, optional fields
-    print(f"Running command {command}")
     goblet = subprocess.run(command.strip().split(), capture_output=True)
 
     # Set openapispec output 
@@ -100,4 +99,4 @@ if __name__ == "__main__":
                     print(f"openapispec={openapi_spec}", file=f)
 
     if goblet.returncode != 0:
-        raise Exception(f"Goblet deploy returncode {goblet.returncode}. Messsage Stderr: {goblet.stderr} Messsage Stdout: {goblet.stdout}")
+        raise Exception(f"Goblet deploy returncode {goblet.returncode}. Messsage stderr: {goblet.stderr} Messsage stdout: {goblet.stdout}")
